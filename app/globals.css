@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* *{
+  font-family: sans-serif;
+  padding: 0px;
+  margin: 0%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.head-container{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  margin-top: 20px;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.link1{
+  display: flex;
+  align-items: center;
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.head-list{
+  display: flex;
+  gap: 30px;
+  margin-left: 200px; 
 }
+.cart-section{
+  display: flex;
+}
+.link2{
+  padding-left: 10px;
+} */
