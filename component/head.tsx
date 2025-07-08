@@ -35,7 +35,7 @@ export default function Head() {
                 tools, and millions of ready customers waiting. Start selling
                 today.
               </p>
-              <Link href={"/vendors-account"}>
+              <Link href={"/vendor-account"}>
                 <button className="p-2 mt-4 rounded-md cursor-pointer bg-[#1AA8EA] font-medium text-white w-[140px] hover:bg-amber-500 transition">
                   Open Your Store
                 </button>

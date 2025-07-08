@@ -22,7 +22,7 @@ export default function Form() {
     }
 
     try {
-      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/login", {
+      const response = await fetch(" https://ecommerce-backend-ueml.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,14 +131,14 @@ export default function Form() {
         <div className="text-center mt-10 flex flex-wrap justify-center items-center text-sm">
           <p className="mr-1">New here? Join as a</p>
           <Link
-            href="/vendors-account"
+            href={"/vendor-account"}
             className="text-orange-600 font-semibold hover:underline ml-1"
           >
             Vendor
           </Link>
           <span className="mx-2">or</span>
           <Link
-            href="/sign-up"
+            href={"/customer-account"}
             className="text-orange-500 font-medium hover:underline"
           >
             Customer
