@@ -1,156 +1,154 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Form2() {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [conPassword, setConPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
+export default function SignupForm() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conPassword, setConPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const btn = () => {
-    if (!firstName) {
-      setError("Enter your first name");
-      return;
-    }
-    if (!lastName) {
-      setError("Enter your last name");
-      return;
-    }
-    if (!email) {
-      setError("Enter your email");
-      return;
-    }
-    if (!email.endsWith("@gmail.com")) {
-      setError(`Your email doesn't end with "@gmail.com"`);
-      return;
-    }
-    if (!password) {
-      setError("Enter your password");
-      return;
-    }
-    if (password.length! < 8) {
-      setError("Password lenght must be grater than 8");
-      return;
-    }
-    if (!conPassword) {
-      setError("Confirm password is empty");
-      return;
-    }
-    if (!(password === conPassword)) {
-      setError("Password and confirm password not the same");
-      return;
-    }
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setConPassword("");
+  const handleSignup = async () => {
     setError("");
+    setSuccess("");
+    setLoading(true);
+
+    // Trim input to remove accidental leading/trailing spaces
+    const trimmedEmail = email.trim();
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+
+    // Validation
+    if (
+      !trimmedFirstName ||
+      !trimmedLastName ||
+      !trimmedEmail ||
+      !password ||
+      !conPassword
+    ) {
+      setError("All fields are required");
+      setLoading(false);
+      return;
+    }
+    
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== conPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:1300/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: trimmedFirstName,
+          lastName: trimmedLastName,
+          email: trimmedEmail,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Something went wrong");
+        setLoading(false);
+        return;
+      }
+
+      // Save email to localStorage for verification page
+      localStorage.setItem("verifyEmail", trimmedEmail);
+
+      setSuccess("✅ Verification code sent to your email.");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setConPassword("");
+
+      setTimeout(() => {
+        router.push("/confirm-email");
+      }, 2000);
+    } catch (err) {
+      setError("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <>
-      <div>
-        <form action="" onSubmit={event =>  event.preventDefault()}>
-          <div>
-            {error !== "" && (
-              <div className="p-1 text-center bg-red-100 rounded-sm mb-3 text-red-600">
-                {error}
-              </div>
-            )}
-          </div>
-          <div className="flex gap-5 mb-3">
-            <div className="grid grid-cols-1">
-              <label htmlFor="" className="text-[12px]">
-                First Name
-              </label>
-              <input
-                value={firstName}
-                onChange={(event) => {
-                  setFirstName(event.target.value);
-                }}
-                type="text"
-                placeholder="Enter first name"
-                className="outline w-[200px]  rounded-sm mt-0.5 text-[12px] p-1.5"
-              />
-            </div>
-            <div className="grid grid-cols-1">
-              <label htmlFor="" className="text-[12px]">
-                Last Name
-              </label>
-              <input
-                value={lastName}
-                onChange={(event) => {
-                  setLastName(event.target.value);
-                }}
-                type="text"
-                placeholder="Enter last name"
-                className="outline w-[200px] p-1.5 rounded-sm mt-0.5 text-[12px]"
-              />
-            </div>
-          </div>
+    <div className="max-w-md mx-auto mt-10">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="bg-white p-6 rounded shadow"
+      >
+        {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
+        {success && <p className="text-green-600 text-sm mb-3">{success}</p>}
 
-          <div className="flex gap-5 mb-3">
-            <div className="grid grid-cols-1">
-              <label htmlFor="" className="text-[12px]">
-                Email Address
-              </label>
-              <input
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                type="text"
-                placeholder="Enter first email"
-                className="outline w-[200px] p-1.5 rounded-sm mt-0.5 text-[12px]"
-              />
-            </div>
-
-            <div className="grid grid-cols-1">
-              <label htmlFor="" className="text-[12px]">
-                Password
-              </label>
-              <input
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                type="password"
-                placeholder="Enter password"
-                className="outline w-[200px] p-1.5 rounded-sm mt-0.5 text-[12px] "
-              />
-            </div>
-
-          </div>
-          <div className="flex gap-5">
-            <div className="grid grid-cols-1">
-              <label htmlFor="" className="text-[12px]">
-                Confirm Password
-              </label>
-              <input
-                value={conPassword}
-                onChange={(event) => {
-                  setConPassword(event.target.value);
-                }}
-                type="password"
-                placeholder="Confirm your password"
-                className="outline w-[200px] p-1.5 rounded-sm mt-0.5 text-[12px]"
-              />
-            </div>
-          </div>
-        </form>
-        <div className="flex justify-center mt-10">
-          <button
-            onClick={btn}
-            className="p-1 w-[130px] bg-amber-600 rounded-sm cursor-pointer text-white text-[14px] hover:translate-y-0.5"
-          >
-            Create Account
-          </button>
+        <div className="flex gap-4 mb-4">
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First Name"
+            className="w-full p-2 border rounded"
+          />
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Last Name"
+            className="w-full p-2 border rounded"
+          />
         </div>
-      </div>
-    </>
+
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email Address"
+          className="w-full p-2 mb-4 border rounded"
+        />
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="w-full p-2 mb-4 border rounded"
+        />
+
+        <input
+          type="password"
+          value={conPassword}
+          onChange={(e) => setConPassword(e.target.value)}
+          placeholder="Confirm Password"
+          className="w-full p-2 mb-4 border rounded"
+        />
+
+        <button
+          onClick={handleSignup}
+          disabled={loading}
+          className="w-full bg-amber-600 text-white py-2 rounded hover:bg-amber-700 transition"
+        >
+          {loading ? "Processing..." : "Create Account"}
+        </button>
+      </form>
+    </div>
   );
 }

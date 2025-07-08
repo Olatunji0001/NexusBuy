@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function Form() {
   const [email, setEmail] = useState<string>("");
-  const [password, setPaasword] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+  const router = useRouter();
 
-  const submit = () => {
+  const submit = async () => {
     if (!email) {
       setError("Enter your email");
       return;
@@ -17,18 +20,56 @@ export default function Form() {
       return;
     }
 
-    setError("");
-    setEmail("");
-    setPaasword("");
+    try {
+      const response = await fetch("http://localhost:1300/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Something went wrong");
+        return;
+      }
+
+      // ✅ Success: clear error, clear form, and redirect
+      setError("");
+      setEmail("");
+      setPassword("");
+      setSuccess("login successful");
+      setTimeout(() => {
+        router.push("/store");
+      }, 2000);
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong. Try again.");
+    }
   };
 
   return (
     <>
       <div className="mt-5">
         <div>
-          {error !== "" && <div className="p-1 text-center bg-red-100 rounded-sm text-red-600">{error}</div>}
+          {success && (
+            <div className="p-1 text-center bg-green-100 rounded-sm mb-3 text-green-700">
+              {success}
+            </div>
+          )}
+          {/* Show error message */}
+          {error && (
+            <div className="p-1 text-center bg-red-100 rounded-sm mb-3 text-red-600">
+              {error}
+            </div>
+          )}{" "}
         </div>
-        <form action="" onSubmit={event =>  event.preventDefault()}>
+        <form action="" onSubmit={(event) => event.preventDefault()}>
           <label htmlFor="">Email</label>
           <input
             value={email}
@@ -44,7 +85,7 @@ export default function Form() {
           <input
             value={password}
             onChange={(event) => {
-              setPaasword(event.target.value);
+              setPassword(event.target.value);
             }}
             type="password"
             placeholder="Enter your eamil"
@@ -57,7 +98,10 @@ export default function Form() {
             <p>Remember me</p>
           </div>
           <div>
-            <Link href={"/Forget-password"} className="text-orange-600 font-semibold">
+            <Link
+              href="/Forget-password"
+              className="text-orange-600 hover:text-orange-700 hover:underline transition duration-200"
+            >
               Forgot password?
             </Link>
           </div>

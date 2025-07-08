@@ -1,11 +1,9 @@
-import product1 from "@/public/product1.jpg";
-type Product = {
+ type Product = {
   id: number;
   name: string;
   price: string;
-  image: typeof product1;
+  image: any;
   oldPrice: string;
   brand: string;
 };
-export default Product;
-
+export default Product

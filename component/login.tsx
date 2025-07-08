@@ -34,27 +34,22 @@ export default function Account() {
             </div>
             <Form />
             <div className="mt-7">
-              <div className="relative flex items-center justify-center my-8">
-                <div className="flex-grow border-t border-gray-300"></div>
-                <span className="flex-shrink mx-4 text-gray-600 font-medium">
-                  Or sign in with
-                </span>
-                <div className="flex-grow border-t border-gray-300"></div>
-              </div>
-              <div className="flex justify-around mb-10">
-                <button className="outline p-1 rounded-sm cursor-pointer hover:translate-y-0.5">
-                  <FcGoogle className="text-[30px] w-[100px]"/>
-                </button>
-                <button className="outline p-1 rounded-sm cursor-pointer hover:translate-y-0.5">
-                  <FaFacebookF className="text-[30px] w-[100px]" />
-                </button>
-              </div>
-              <p className="text-center mt-10">
-                New here?{" "}
-                <Link href={"/Sign-up"} className="text-orange-600 font-semibold">
-                  Create account
+              <div className="text-center mt-10 flex items-center justify-center">
+                <p className="mr-1">New here? Join as a</p>
+                <Link
+                  href="/vendors-account"
+                  className="text-orange-600 font-semibold hover:underline ml-1"
+                >
+                  Vendor
                 </Link>
-              </p>
+                <span className="mx-2">or</span>
+                <Link
+                  href="/sign-up"
+                  className="text-orange-500 font-medium hover:underline"
+                >
+                  Customer
+                </Link>
+              </div>
             </div>
           </div>
         </div>

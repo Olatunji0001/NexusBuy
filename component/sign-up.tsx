@@ -7,7 +7,7 @@ import { FaFacebookF } from "react-icons/fa6";
 export default function Signup() {
   return (
     <>
-      <div className="flex">
+      <div className="flex h-screen overflow-hidden">
         <div className="text-center content-center w-[50%] h-[100vh] bg-amber-600  text-[white] cursor-pointer">
           <div className="animate-[bounce_15s_infinite] p-10 ">
             <div className="animate-pulse">
@@ -44,26 +44,11 @@ export default function Signup() {
             <Form2 />
           </div>
 
-          <div className="relative flex items-center justify-center my-8">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="flex-shrink mx-4 text-gray-600 font-[15px]">
-              Or sign in with
-            </span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
-          <div className="flex justify-around mb-5">
-            <button className="outline p-1 rounded-sm cursor-pointer hover:translate-y-0.5">
-              <FcGoogle className="text-[20px] w-[90px]" />
-            </button>
-            <button className="outline p-1 rounded-sm cursor-pointer hover:translate-y-0.5">
-              <FaFacebookF className="text-[20px] w-[90px]" />
-            </button>
-          </div>
           <p className="text-center mt-7">
             Already have an account?{" "}
             <Link
               href={"/Login-and-Sign-up"}
-              className="text-orange-600 font-semibold"
+              className="text-orange-600 font-semibold hover:underline mr-1"
             >
               Sign in
             </Link>

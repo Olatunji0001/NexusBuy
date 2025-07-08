@@ -16,7 +16,7 @@ type WishlistState = {
 
 type WishlistAction =
   | { type: 'ADD_TO_WISHLIST'; payload: Product }
-  | { type: 'REMOVE_FROM_WISHLIST'; payload: number }; // payload is product ID
+  | { type: 'REMOVE_FROM_WISHLIST'; payload: number }; // payload is product ID 
 
 export const WishlistContext = createContext<{
   state: WishlistState;
@@ -56,4 +56,5 @@ export const WishlistContextProvider = ({ children }: { children: ReactNode }) =
   );
 };
 
-export const useWishlistHook = () => useContext(WishlistContext); 
+export const useWishlistHook = () => useContext(WishlistContext);
+ 

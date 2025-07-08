@@ -1,5 +1,4 @@
 "use client";
-import { BiLock } from "react-icons/bi";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -73,10 +72,10 @@ export default function ForgetPass() {
                   Send Reset Code
                 </button>
               </form>
-              <p className="mt-10">
+              <p className="mt-5">
                 <Link
                   href={"/Login-and-Sign-up"}
-                  className="text-[#E17100] font-semibold"
+                  className="text-[#E17100] font-semibold hover:underline mr-1"
                 >
                   Back to Login
                 </Link>

@@ -1,8 +1,8 @@
-
+import FindStore from "@/component/Fstore"
 export default function Store () {
     return(
         <>
-        hello store
+            <FindStore/>
         </>
     )
 }

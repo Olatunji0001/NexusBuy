@@ -1,6 +1,6 @@
 "use client";
 import { WishlistContextProvider } from "@/context/wishlistContext";
-import Footer from "@/component/footer";
+import Footer2 from "@/component/footer2";
 import Header from "@/component/navbar";
 
 const RootComponentLayout = ({ children }: { children: React.ReactNode }) => {
@@ -8,7 +8,7 @@ const RootComponentLayout = ({ children }: { children: React.ReactNode }) => {
     <WishlistContextProvider>
         <Header />
         {children}
-        <Footer />
+        <Footer2 />
     </WishlistContextProvider>
   );
 };

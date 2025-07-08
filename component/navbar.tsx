@@ -16,7 +16,7 @@ export default function Head() {
           <div>
             <Link href={"/"}>
               <Image
-                src={"/logo2.png"}
+                src={"/Logo.png"}
                 alt=""
                 width={1000}
                 priority
@@ -26,7 +26,7 @@ export default function Head() {
             </Link>
           </div>
           <div className="flex gap-80">
-            <div>
+            <div className="">
               <ul className="flex gap-10">
                 <li>
                   <Link
@@ -52,7 +52,7 @@ export default function Head() {
               <Link href={"/Liked-Products"} className="pl-3 text-[20px]">
                 <GiSelfLove />
               </Link>
-              <Link href={"/Login-and-Sign-up"} className="pl-3 text-[20px]">
+              <Link href={"/login-and-signup"} className="pl-3 text-[20px]">
                 <CiUser />
               </Link>
               <Link href={""} className="pl-3 text-[20px]">
@@ -95,7 +95,7 @@ export default function Head() {
               <Link href={""}>BRANDS</Link>
             </h1>
           </div>
-          <div className="flex items-center outline p-1 gap-2 w-[300px] h-[30px] justify-center rounded-sm"> 
+          <div className="flex items-center outline p-1 gap-2 w-[300px] h-[30px] justify-center rounded-sm">
             <button className="cursor-pointer p-2">
               <IoIosSearch />
             </button>
