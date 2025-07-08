@@ -14,7 +14,8 @@ export default function Liked() {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-5 w-[90%] mx-auto mt-5">Your Liked Products</h1>
       {state.likedProducts.length === 0 ? (
-        <p className="w-[90%] mx-auto text-center text-[30px] mb-12 animate-[bounce_5s_infinite] ">You haven't liked any products yet</p>
+        <p className="w-[90%] mx-auto text-center text-[30px] mb-12 animate-[bounce_5s_infinite]">You haven&#39;t liked any products yet</p>
+
       ) : (
         <div className="grid grid-cols-6 w-[90%] mx-auto gap-5">
           {state.likedProducts.map((product) => (
