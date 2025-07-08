@@ -41,7 +41,7 @@ export default function EmailConf() {
     }
 
     try {
-      const response = await fetch(" https://ecommerce-backend-ueml.onrender.com/verify-code", {
+      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/verify-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export default function EmailConf() {
     setResendLoading(true);
 
     try {
-      const response = await fetch(" https://ecommerce-backend-ueml.onrender.com/resend-code", {
+      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/resend-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
