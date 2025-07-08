@@ -100,7 +100,7 @@ export default function SignupForm() {
         <div className="mb-4">
           <Link href="/">
             <Image
-              src="/logo.png"
+              src="/Logo.png"
               alt="Logo"
               width={150}
               height={150}

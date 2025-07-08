@@ -76,7 +76,7 @@ export default function VendorForm() {
     <div className="w-full max-w-md">
       <div className="flex justify-center mb-4">
         <Link href="/">
-          <Image src="/logo.png" alt="NexusBuy Logo" width={150} height={80} className="w-[150px]" />
+          <Image src="/Logo.png" alt="NexusBuy Logo" width={150} height={80} className="w-[150px]" />
         </Link>
       </div>
 

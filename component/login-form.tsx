@@ -60,7 +60,7 @@ export default function Form() {
         <div className="w-full max-w-md">
           <Link href="/">
             <Image
-              src={"/logo.png"}
+              src={"/Logo.png"}
               alt="Logo"
               width={200}
               height={80}
