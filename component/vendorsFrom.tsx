@@ -41,7 +41,7 @@ export default function VendorForm() {
     }
 
     try {
-      const response = await fetch("https://ecommerce-backend-neon-psi.vercel.app//sellers-account", {
+      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/sellers-account", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fullname: trimmedUsername, email: trimmedEmail, password }),
