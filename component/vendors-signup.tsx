@@ -4,12 +4,14 @@ export default function Signup() {
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Left Promo Section - Hidden on screens <1024px */}
-      <div className="hidden lg:flex w-full lg:w-1/2 bg-amber-600 text-white justify-center items-center text-center p-10 ">
-        <div className="animate-[bounce_15s_infinite]">
-          <div className="animate-pulse max-w-md">
-            <h1 className="text-4xl font-bold mb-4">Join NexusBuy Today</h1>
-            <p className="text-lg font-medium">
-              Empower your business with a global platform, seamless selling
+       <div className="hidden  lg:flex w-1/2 justify-center items-center bg-amber-600 text-white text-center">
+        <div className="p-10 animate-[bounce_15s_infinite]">
+          <div className="animate-pulse">
+            <h1 className="text-[32px] lg:text-[45px] font-bold mb-4 leading-tight">
+              Join NexusBuy Today
+            </h1>
+            <p className="text-lg lg:text-xl font-medium">
+               Empower your business with a global platform, seamless selling
               tools, and access to millions of eager shoppers ready to discover
               your products.
             </p>
