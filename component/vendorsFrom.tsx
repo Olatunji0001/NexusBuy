@@ -41,7 +41,7 @@ export default function VendorForm() {
     }
 
     try {
-      const response = await fetch("http://localhost:1300/sellers-account", {
+      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/sellers-account", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fullname: trimmedUsername, email: trimmedEmail, password }),

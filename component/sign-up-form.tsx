@@ -52,7 +52,7 @@ export default function SignupForm() {
     }
 
     try {
-      const res = await fetch("http://localhost:1300/sign-up", {
+      const res = await fetch("https://ecommerce-backend-ueml.onrender.com/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
