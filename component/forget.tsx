@@ -2,9 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
 export default function ForgetPass() {
-  const [email, setEmail] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const btn = () => {
     if (!email) {
@@ -12,78 +13,82 @@ export default function ForgetPass() {
       return;
     }
 
-    setEmail("")
-    setError("")
+    setEmail("");
+    setError("");
   };
+
   return (
-    <>
-      <div className="flex">
-        <div className="h-[100vh] w-[50%] bg-amber-600 text-white text-center content-center cursor-pointer">
-          <div className="animate-[bounce_15s_infinite] p-10 ">
-            <div className="animate-pulse">
-              <h1 className="text-[50px] font-bold">Lost your Account?</h1>
-              <p className="text-[20px] font-semibold">
-                Enter your email address and we'll send you a code to reset your
-                password.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="h-[100vh] w-[50%] content-center">
-          <div className="w-[400px] mx-auto">
-            <div className="flex justify-center mb-7">
-              <Link href={"/"}>
-                <Image
-                  src={"/Logo.png"}
-                  alt="logo"
-                  height={100}
-                  width={100}
-                  className="w-[170px]"
-                />
-              </Link>
-            </div>
-            <div className="">
-              <h1 className="text-[22px] font-semibold">Forget Password?</h1>
-              <p className="text-[14px] my-1.5">
-                No worries! Enter your email address and we'll send you a Code
-                to reset your password.
-              </p>
-              <form action="" onSubmit={(event) => event.preventDefault()}>
-                <div>
-                  {error !== "" && (
-                    <div className="p-1 text-center bg-red-100 rounded-sm mt-4 text-red-600">
-                      {error}
-                    </div>
-                  )}
-                </div>
-                <input
-                  value={email}
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                  }}
-                  type="text"
-                  placeholder="Enter your email address"
-                  className="outline p-2 rounded-sm text-[12px] my-3 w-[400px]"
-                />
-                <button
-                  onClick={btn}
-                  className="mt-3 bg-amber-600 text-white p-1.5 rounded-sm w-[150px] cursor-pointer hover:translate-y-0.5"
-                >
-                  Send Reset Code
-                </button>
-              </form>
-              <p className="mt-5">
-                <Link
-                  href={"/Login-and-Sign-up"}
-                  className="text-[#E17100] font-semibold hover:underline mr-1"
-                >
-                  Back to Login
-                </Link>
-              </p>
-            </div>
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
+      {/* LEFT SECTION: Promo - hidden on screens < 880px */}
+      <div className="hidden lg:flex justify-center items-center w-full lg:w-1/2 bg-amber-600 text-white text-center">
+        <div className="p-10 animate-[bounce_15s_infinite]">
+          <div className="animate-pulse">
+            <h1 className="text-[40px] lg:text-[50px] font-bold mb-4">
+              Lost your Account?
+            </h1>
+            <p className="text-lg lg:text-xl font-medium">
+              Enter your email and we’ll send a reset code.
+            </p>
           </div>
         </div>
       </div>
-    </>
+
+      {/* RIGHT SECTION: Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 min-h-screen">
+        <div className="w-full max-w-md">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <Link href="/">
+              <Image
+                src="/Logo.png"
+                alt="logo"
+                width={170}
+                height={100}
+                className="w-[170px] h-auto"
+              />
+            </Link>
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-2xl font-semibold mb-1">Forget Password?</h1>
+          <p className="text-sm text-gray-600 mb-5">
+            No worries! Enter your email and we’ll send a code to reset your
+            password.
+          </p>
+
+          {/* Form */}
+          <form onSubmit={(e) => e.preventDefault()}>
+            {error && (
+              <div className="p-2 text-center bg-red-100 rounded text-red-600 mb-3 text-sm">
+                {error}
+              </div>
+            )}
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Enter your email"
+              className="w-full p-2 border border-gray-300 rounded mb-4 text-sm"
+            />
+            <button
+              onClick={btn}
+              className="w-full bg-amber-600 text-white py-2 rounded hover:bg-amber-700 transition"
+            >
+              Send Reset Code
+            </button>
+          </form>
+
+          {/* Back to login */}
+          <p className="mt-6 text-center text-sm">
+            <Link
+              href="/login-and-signup"
+              className="text-orange-600 font-semibold hover:underline"
+            >
+              Back to Login
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
