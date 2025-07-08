@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SignupForm() {
-  const [firstName, setFirstName] = useState("");
+    const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +37,7 @@ export default function SignupForm() {
       setLoading(false);
       return;
     }
-    
+
 
     if (password.length < 8) {
       setError("Password must be at least 8 characters long");
@@ -92,7 +94,31 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
+    <div className="w-full max-w-md mx-auto min-h-screen flex flex-col justify-center">
+      {/* Header Section - Adjusted for better alignment */}
+      <div className="flex flex-col items-center mb-6">
+        <div className="mb-4">
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={150}
+              height={150}
+              className="w-[150px] h-auto"
+            />
+          </Link>
+        </div>
+        <div className="text-center w-full">
+          <h1 className="text-2xl font-semibold mb-1">
+            Create your account
+          </h1>
+          <p className="text-sm text-gray-600">
+            Start your shopping journey with us
+          </p>
+        </div>
+      </div>
+
+      {/* Form Section - Keep your existing form code */}
       <form
         onSubmit={(e) => e.preventDefault()}
         className="bg-white p-6 rounded shadow"
@@ -149,6 +175,16 @@ export default function SignupForm() {
           {loading ? "Processing..." : "Create Account"}
         </button>
       </form>
+
+      <p className="text-center mt-7 text-sm">
+        Already have an account?{" "}
+        <Link
+          href="/login-and-signup"
+          className="text-orange-600 font-semibold hover:underline"
+        >
+          Sign in
+        </Link>
+      </p>
     </div>
   );
 }

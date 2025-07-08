@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 export default function Form() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -55,7 +56,19 @@ export default function Form() {
 
   return (
     <>
-      <div className="mt-5">
+      <div className="w-full max-w-md mx-auto min-h-screen flex flex-col justify-center">
+        <div className="w-full max-w-md">
+          <Link href="/">
+            <Image
+              src={"/logo.png"}
+              alt="Logo"
+              width={200}
+              height={80}
+              className="w-[200px] mb-4"
+            />
+          </Link>
+          <p className="mb-4">Sign in to your account</p>
+        </div>
         <div>
           {success && (
             <div className="p-1 text-center bg-green-100 rounded-sm mb-3 text-green-700">
@@ -113,6 +126,23 @@ export default function Form() {
           >
             Sign in
           </button>
+        </div>
+
+        <div className="text-center mt-10 flex flex-wrap justify-center items-center text-sm">
+          <p className="mr-1">New here? Join as a</p>
+          <Link
+            href="/vendors-account"
+            className="text-orange-600 font-semibold hover:underline ml-1"
+          >
+            Vendor
+          </Link>
+          <span className="mx-2">or</span>
+          <Link
+            href="/sign-up"
+            className="text-orange-500 font-medium hover:underline"
+          >
+            Customer
+          </Link>
         </div>
       </div>
     </>

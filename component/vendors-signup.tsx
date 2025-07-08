@@ -1,15 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
 import VendorForm from "./vendorsFrom";
 
 export default function Signup() {
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="text-center content-center w-[50%] h-[100vh] bg-amber-600  text-[white] cursor-pointer">
-        <div className="animate-[bounce_15s_infinite] p-10 ">
-          <div className="animate-pulse">
-            <h1 className="text-[50px] font-bold">Join NexusBuy Today</h1>
-            <p className="text-[20px] font-semibold">
+    <div className="flex flex-col lg:flex-row h-screen">
+      {/* Left Promo Section - Hidden on screens <1024px */}
+      <div className="hidden lg:flex w-full lg:w-1/2 bg-amber-600 text-white justify-center items-center text-center p-10 ">
+        <div className="animate-[bounce_15s_infinite]">
+          <div className="animate-pulse max-w-md">
+            <h1 className="text-4xl font-bold mb-4">Join NexusBuy Today</h1>
+            <p className="text-lg font-medium">
               Empower your business with a global platform, seamless selling
               tools, and access to millions of eager shoppers ready to discover
               your products.
@@ -18,38 +17,9 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Right Panel */}
-      <div className="w-1/2 flex flex-col justify-center items-center p-6">
-        <Link href="/" className="mb-3">
-          <Image
-            src="/logo2.png"
-            alt="NexusBuy Logo"
-            width={120}
-            height={120}
-            className="w-[150px] h-auto"
-          />
-        </Link>
-
-        <div className="text-center">
-          <p className="text-2xl font-semibold">Create your account</p>
-          <p className="text-sm text-gray-600">
-            Start selling with us — boost your business.
-          </p>
-        </div>
-
-        <div className="w-full ">
-          <VendorForm />
-        </div>
-
-        <p className="text-sm mt-5">
-          Already have an account?{" "}
-          <Link
-            href="/Login-and-Sign-up"
-            className="text-orange-600 font-semibold hover:underline"
-          >
-            Sign in
-          </Link>
-        </p>
+      {/* Right Form Section */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center min-h-screen p-6">
+        <VendorForm />
       </div>
     </div>
   );
