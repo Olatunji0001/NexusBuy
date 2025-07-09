@@ -77,7 +77,7 @@ export default function Head() {
       {/* Desktop Bottom Bar */}
       <div className="hidden lg:flex justify-between items-center max-w-screen-xl mx-auto px-4 py-2">
         <div className="flex gap-6 text-[13px]">
-          <Link href="">SALE</Link>
+          <Link href="confirm-email">SALE</Link>
           <Link href="">NEW IN</Link>
           <Link href="">CLOTHING</Link>
           <Link href="">SHOES</Link>
