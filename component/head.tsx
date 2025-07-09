@@ -68,23 +68,6 @@ export default function Head() {
             </div>
           </div>
         </div>
-        {/* Slide 3 */}
-        <div>
-          <div className="w-[95%] mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <Image
-              src="/digi4.webp"
-              alt="delivery service"
-              width={800}
-              height={600}
-              className="w-full md:w-[45%] rounded-md"
-            />
-            <p className="text-[20px] md:text-[24px] font-medium text-center md:text-left text-gray-800 max-w-xl">
-              Fast, reliable delivery — straight to your door. Track your order
-              in real-time. No delays, no stress. Enjoy seamless shipping with
-              every purchase. Your satisfaction, guaranteed!
-            </p>
-          </div>
-        </div>
       </Slider>
     </div>
   );
