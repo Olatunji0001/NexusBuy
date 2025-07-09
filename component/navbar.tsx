@@ -30,7 +30,7 @@ export default function Head() {
         </Link>
 
         {/* Desktop Top Right Menu */}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden lg:flex items-center gap-100">
           <ul className="flex gap-6 text-[15px]">
             <li>
               <Link href="/Contact-Support" className="flex items-center gap-1">
