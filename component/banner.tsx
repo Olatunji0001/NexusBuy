@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Head() {
+export default function Hero() {
   const settings = {
     dots: false,
     infinite: true,

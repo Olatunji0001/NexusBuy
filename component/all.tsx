@@ -1,12 +1,11 @@
 "use client";
-import Head from "./head";
+import Hero from "./banner";
 import Product from "./product";
 export default function All() {
   return (
     <>
-      <Head />
+      <Hero />
       <Product />
-  
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Stores, { Store } from "./stores";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function FindStore() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -147,31 +148,45 @@ export default function FindStore() {
         {/* Sidebar */}
         <aside className="w-full lg:w-[20%] mb-6 lg:mb-0">
           <p className="font-semibold mb-3">Categories</p>
-          <form className="space-y-2" role="radiogroup" aria-label="Store Categories">
-            {visibleCategories.map((ctg) => (
-              <label key={ctg.id} className="flex items-center gap-2 text-sm">
-                <input
-                  type="radio"
-                  name="category"
-                  value={ctg.value}
-                  checked={selectedCategory === ctg.value}
-                  onChange={() => setSelectedCategory(ctg.value)}
-                />
-                {ctg.label}
-              </label>
-            ))}
+
+          <form>
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={showAllCategories ? "expanded" : "collapsed"}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="overflow-hidden space-y-2"
+              >
+                {(showAllCategories ? categories : categories.slice(0, 5)).map(
+                  (ctg) => (
+                    <label
+                      key={ctg.id}
+                      className="flex items-center gap-2 text-sm"
+                    >
+                      <input
+                        type="radio"
+                        name="category"
+                        value={ctg.value}
+                        checked={selectedCategory === ctg.value}
+                        onChange={() => setSelectedCategory(ctg.value)}
+                      />
+                      {ctg.label}
+                    </label>
+                  )
+                )}
+              </motion.div>
+            </AnimatePresence>
           </form>
 
-          {/* Toggle Button */}
           {categories.length > 5 && (
             <button
               type="button"
               onClick={() => setShowAllCategories(!showAllCategories)}
-              className="mt-3 text-sm text-[#26BAEF] hover:text-blue-700 transition"
+              className="mt-3 text-sm text-blue-600 hover:underline"
             >
-              {showAllCategories
-                ? "Show Less Categories ▲"
-                : "Show More Categories ▼"}
+              {showAllCategories ? "Show Less" : "Show More"}
             </button>
           )}
         </aside>
