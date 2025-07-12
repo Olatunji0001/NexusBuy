@@ -15,83 +15,89 @@ export default function SignupForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignup = async () => {
-    setError("");
-    setSuccess("");
-    setLoading(true);
+const handleSignup = async () => {
+  setError("");
+  setSuccess("");
+  setLoading(true);
 
-    // Trim input to remove accidental leading/trailing spaces
-    const trimmedEmail = email.trim();
-    const trimmedFirstName = firstName.trim();
-    const trimmedLastName = lastName.trim();
+  // Trim input to remove accidental leading/trailing spaces
+  const trimmedEmail = email.trim();
+  const trimmedFirstName = firstName.trim();
+  const trimmedLastName = lastName.trim();
 
-    // Validation
-    if (
-      !trimmedFirstName ||
-      !trimmedLastName ||
-      !trimmedEmail ||
-      !password ||
-      !conPassword
-    ) {
-      setError("All fields are required");
-      setLoading(false);
-      return;
-    }
+  // Validation
+  if (
+    !trimmedFirstName ||
+    !trimmedLastName ||
+    !trimmedEmail ||
+    !password ||
+    !conPassword
+  ) {
+    setError("All fields are required");
+    setLoading(false);
+    return;
+  }
 
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters long");
+    setLoading(false);
+    return;
+  }
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long");
-      setLoading(false);
-      return;
-    }
+  if (password !== conPassword) {
+    setError("Passwords do not match");
+    setLoading(false);
+    return;
+  }
 
-    if (password !== conPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sign-up`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: trimmedFirstName,
+        lastName: trimmedLastName,
+        email: trimmedEmail,
+        password,
+      }),
+    });
 
-    try {
-      const res = await fetch("https://ecommerce-backend-ueml.onrender.com/sign-up", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: trimmedFirstName,
-          lastName: trimmedLastName,
-          email: trimmedEmail,
-          password,
-        }),
-      });
+    const data = await res.json();
 
-      const data = await res.json();
-
-      if (!res.ok) {
+    if (!res.ok) {
+      // Handle email already used by customer or seller
+      if (data.message?.includes("email")) {
+        setError(data.message); // This may be: "This email already exists in another account type."
+      } else {
         setError(data.message || "Something went wrong");
-        setLoading(false);
-        return;
       }
-
-      // Save email to localStorage for verification page
-      localStorage.setItem("verifyEmail", trimmedEmail);
-
-      setSuccess("✅ Verification code sent to your email.");
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setConPassword("");
-
-      setTimeout(() => {
-        router.push("/confirm-email");
-      }, 2000);
-    } catch (err) {
-      setError("Server error. Please try again later.");
-    } finally {
       setLoading(false);
+      return;
     }
-  };
+
+    // Save email to localStorage for verification page
+    localStorage.setItem("verifyEmail", trimmedEmail);
+    localStorage.setItem("accountType", "customer"); // ✅ Set account type for verification routing
+
+    setSuccess("✅ Verification code sent to your email.");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setConPassword("");
+
+    setTimeout(() => {
+      router.push("/confirm-email");
+    }, 2000);
+  } catch (err) {
+    setError("Server error. Please try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="w-full max-w-md mx-auto min-h-screen flex flex-col justify-center">

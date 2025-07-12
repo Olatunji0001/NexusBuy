@@ -69,7 +69,7 @@ export default function Head() {
 
       {/* Desktop Category Nav */}
       <div className="hidden lg:flex gap-8 text-[15px] max-w-screen-xl mx-auto px-4 py-2 border-b">
-        <Link href="">WOMEN</Link>
+        <Link href="/store-info">WOMEN</Link>
         <Link href="">MEN</Link>
         <Link href="">KIDS</Link>
       </div>
@@ -77,7 +77,7 @@ export default function Head() {
       {/* Desktop Bottom Bar */}
       <div className="hidden lg:flex justify-between items-center max-w-screen-xl mx-auto px-4 py-2">
         <div className="flex gap-6 text-[13px]">
-          <Link href="confirm-email">SALE</Link>
+          <Link href="/store-info">SALE</Link>
           <Link href="">NEW IN</Link>
           <Link href="">CLOTHING</Link>
           <Link href="">SHOES</Link>

@@ -41,15 +41,18 @@ export default function EmailConf() {
     }
 
     try {
-      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/verify-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim().toLowerCase(),
-          code: code.trim(),
-          accountType,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/verify-code`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.trim().toLowerCase(),
+            code: code.trim(),
+            accountType,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -64,7 +67,11 @@ export default function EmailConf() {
       localStorage.setItem("token", data.token);
 
       setTimeout(() => {
-        router.push("/store");
+        if (accountType === "vendor") {
+          router.push("/store-info"); // ✅ Vendors go to store-info
+        } else {
+          router.push("/store"); // ✅ Customers go to regular store
+        }
       }, 2000);
     } catch (err) {
       setError("Something went wrong. Try again.");
@@ -79,14 +86,17 @@ export default function EmailConf() {
     setResendLoading(true);
 
     try {
-      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/resend-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim().toLowerCase(),
-          accountType,
-        }),
-      });
+      const response = await fetch(
+        "https://ecommerce-backend-ueml.onrender.com/resend-code",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.trim().toLowerCase(),
+            accountType,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -108,9 +118,12 @@ export default function EmailConf() {
       {/* Left Side - Show only on lg and up */}
       <div className="hidden lg:flex w-0 lg:w-1/2 bg-amber-600 text-white items-center justify-center p-10">
         <div className="text-center animate-pulse">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-4">Email Verification</h1>
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
+            Email Verification
+          </h1>
           <p className="text-base lg:text-lg font-semibold">
-            A code has been sent to your email. Enter it below to complete registration.
+            A code has been sent to your email. Enter it below to complete
+            registration.
           </p>
         </div>
       </div>
@@ -168,7 +181,7 @@ export default function EmailConf() {
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-600">
-            Didn&apos;t get a code? {" "}
+            Didn&apos;t get a code?{" "}
             <span
               onClick={handleResend}
               className={`text-blue-500 font-medium cursor-pointer hover:underline $${
@@ -180,9 +193,13 @@ export default function EmailConf() {
           </p>
 
           <p className="mt-6 text-center text-sm">
-            Wrong email? {" "}
+            Wrong email?{" "}
             <Link
-              href={accountType === "seller" ? "/vendor-account" : "/cutomer-account"}
+              href={
+                accountType === "seller"
+                  ? "/vendor-account"
+                  : "/customer-account"
+              }
               className="text-[#E17100] font-semibold"
             >
               Go back to sign up

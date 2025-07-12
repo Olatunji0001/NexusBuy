@@ -120,7 +120,7 @@ export default function Products() {
         </div>
       )}
 
-      <div className="w-[95%] mx-auto mt-10 container pb-23">
+      <div className="w-[95%] mx-auto mt-10 container pb-5">
         <div className="ml-2 mb-2">
           <h1 className="text-[24px] md:text-[30px] font-bold">NEW DROPS</h1>
           <Link

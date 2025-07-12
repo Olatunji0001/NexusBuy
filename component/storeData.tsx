@@ -1,6 +1,5 @@
-import Form2 from "@/component/sign-up-form";
-
-export default function Signup() {
+import StoreForm from "@/component/storeForm";
+export default function StoreData() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Promo Section — hide when screen < 880px */}
@@ -11,9 +10,9 @@ export default function Signup() {
               Join NexusBuy Today
             </h1>
             <p className="text-lg lg:text-xl font-medium">
-              Discover amazing products, exclusive deals, and enjoy a premium
-              shopping experience with millions of satisfied customers
-              worldwide.
+              Create a store that stands out — share your brand, story, and
+              products to connect with customers and grow your business
+              globally.
             </p>
           </div>
         </div>
@@ -21,7 +20,7 @@ export default function Signup() {
 
       {/* Form Section — always visible */}
       <div className="w-full lg:w-1/2 flex justify-center items-center p-4">
-        <Form2 />
+        <StoreForm />
       </div>
     </div>
   );

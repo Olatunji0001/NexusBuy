@@ -14,63 +14,74 @@ export default function VendorForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async () => {
-    setError("");
-    setSuccess("");
-    setLoading(true);
+ const handleSubmit = async () => {
+  setError("");
+  setSuccess("");
+  setLoading(true);
 
-    const trimmedUsername = fullname.trim();
-    const trimmedEmail = email.trim();
+  const trimmedUsername = fullname.trim();
+  const trimmedEmail = email.trim();
 
-    if (!trimmedUsername || !trimmedEmail || !password || !conPassword) {
-      setError("All fields are required");
-      setLoading(false);
-      return;
-    }
+  if (!trimmedUsername || !trimmedEmail || !password || !conPassword) {
+    setError("All fields are required");
+    setLoading(false);
+    return;
+  }
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      setLoading(false);
-      return;
-    }
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters");
+    setLoading(false);
+    return;
+  }
 
-    if (password !== conPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
+  if (password !== conPassword) {
+    setError("Passwords do not match");
+    setLoading(false);
+    return;
+  }
 
-    try {
-      const response = await fetch("https://ecommerce-backend-ueml.onrender.com/sellers-account", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullname: trimmedUsername, email: trimmedEmail, password }),
-      });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sellers-account`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullname: trimmedUsername,
+        email: trimmedEmail,
+        password,
+      }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (!response.ok) {
+    if (!response.ok) {
+      if (data.message?.includes("email")) {
+        setError(data.message); // Show specific message from backend
+      } else {
         setError(data.message || "Something went wrong");
-        setLoading(false);
-        return;
       }
-
-      localStorage.setItem("verifyEmail", trimmedEmail);
-      setSuccess("✅ Verification code sent to your email.");
-      setFullname("");
-      setEmail("");
-      setPassword("");
-      setConPassword("");
-
-      setTimeout(() => {
-        router.push("/confirm-email");
-      }, 2000);
-    } catch (err) {
-      setError("Server error. Please try again later.");
-    } finally {
       setLoading(false);
+      return;
     }
-  };
+
+    localStorage.setItem("verifyEmail", trimmedEmail);
+    localStorage.setItem("accountType", "vendor"); // ✅ important for redirect after verification
+
+    setSuccess("✅ Verification code sent to your email.");
+    setFullname("");
+    setEmail("");
+    setPassword("");
+    setConPassword("");
+
+    setTimeout(() => {
+      router.push("/confirm-email");
+    }, 2000);
+  } catch (err) {
+    setError("Server error. Please try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="w-full max-w-md">
